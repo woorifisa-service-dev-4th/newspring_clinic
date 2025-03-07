@@ -1,4 +1,4 @@
-package dev.spring.petclinic.Util;
+package dev.spring.petclinic.global.Util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
