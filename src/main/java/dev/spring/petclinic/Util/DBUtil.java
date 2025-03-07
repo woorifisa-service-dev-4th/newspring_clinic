@@ -19,9 +19,9 @@ public class DBUtil {
 			// JDBC 드라이버 로드
 			Class.forName(DRIVER_NAME);
 
-			// application-mysql.properties 파일 읽기
+			// application.properties 파일 읽기
 			Properties properties = new Properties();
-			properties.load(new FileInputStream("src/main/resources/application-mysql.properties"));
+			properties.load(new FileInputStream("src/main/resources/application.properties"));
 
 			// 속성 값 가져오기
 			DB_URL = properties.getProperty("spring.datasource.url");
