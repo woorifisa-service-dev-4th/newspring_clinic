@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="vets.xsl"?>
+<vets>
+    <vet>
+        <id>1</id>
+        <firstName>James</firstName>
+        <lastName>Carter</lastName>
+    </vet>
+    <vet>
+        <id>3</id>
+        <firstName>Linda</firstName>
+        <lastName>Douglas</lastName>
+        <specialties>
+            <id>3</id>
+            <name>dentistry</name>
+        </specialties>
+        <specialties>
+            <id>2</id>
+            <name>surgery</name>
+        </specialties>
+    </vet>
+    <vet>
+        <id>6</id>
+        <firstName>Sharon</firstName>
+        <lastName>Jenkins</lastName>
+    </vet>
+    <vet>
+        <id>2</id>
+        <firstName>Helen</firstName>
+        <lastName>Leary</lastName>
+        <specialties>
+            <id>1</id>
+            <name>radiology</name>
+        </specialties>
+    </vet>
+    <vet>
+        <id>4</id>
+        <firstName>Rafael</firstName>
+        <lastName>Ortega</lastName>
+        <specialties>
+            <id>2</id>
+            <name>surgery</name>
+        </specialties>
+    </vet>
+    <vet>
+        <id>5</id>
+        <firstName>Henry</firstName>
+        <lastName>Stevens</lastName>
+        <specialties>
+            <id>1</id>
+            <name>radiology</name>
+        </specialties>
+    </vet>
+</vets>
