@@ -74,6 +74,12 @@ public class PetService {
         return PetDTO.fromEntity(pet);
     }
 
+    public Pet findById(Long petId) {
+        return petRepository.findById(petId)
+            .orElseThrow(() -> new RuntimeException("존재하지 않는 Pet ID: " + petId));
+    }
+
+
     /**
      * 모든 PetType을 조회하여 반환
      *

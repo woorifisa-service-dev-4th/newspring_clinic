@@ -4,7 +4,14 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.sun.istack.NotNull;
 
 @Entity
 @Getter
@@ -15,8 +22,13 @@ import java.time.LocalDateTime;
 @Table(name = "visits")
 public class Visit extends BaseEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "visit_date")
-    private LocalDateTime date;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
 
     private String description;
 
