@@ -39,7 +39,7 @@
 
 **4. Visit 추가 기능**
    - GetMapping
-     * Visit 추가 폼 가져오기
+     * "Add Visit" 클릭 시 Visit 추가 폼을 받아오는 GET 요청
    - PostMapping
      * Visit 저장
 <br><br>
