@@ -12,7 +12,7 @@
 ## ✏️ 기능 소개 
 **Spring MVC의 Controller-Service-View 패턴 적용**
 <br>
-**Spring Boot + JPA를 활용하여 Owner, Pet, Veterinarian 데이터를 관리**
+**Spring Boot + JPA를 활용하여 Owner, Pet, Veterinarian, Visit 데이터를 관리**
 <br><br>
 **1. Owner 추가, 수정 기능**
   - GetMapping
