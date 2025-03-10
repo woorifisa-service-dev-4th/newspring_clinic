@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class OwnerService {
@@ -30,6 +32,7 @@ public class OwnerService {
      * @param owner 저장할 Owner 객체
      * @return 저장된 Owner 객체
      */
+    @Transactional
     public Owner saveOwner(Owner owner) {
         if (owner.getId() != null) { // 기존 Owner 수정 시
             Owner existingOwner = ownerRepository.findById(owner.getId())

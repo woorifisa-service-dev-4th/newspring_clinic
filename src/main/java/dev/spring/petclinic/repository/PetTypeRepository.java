@@ -10,6 +10,5 @@ import java.util.Optional;
 @Repository
 public interface PetTypeRepository extends JpaRepository<PetType, Long> {
 
-    @Transactional
     Optional<PetType> findByName(String name);
 }

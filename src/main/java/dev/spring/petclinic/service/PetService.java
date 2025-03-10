@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class PetService {
@@ -36,6 +38,7 @@ public class PetService {
      * @param petDTO 저장할 PetDTO 객체
      * @return 저장된 Pet Entity 객체
      */
+    @Transactional
     public Pet savePet(Long ownerId, PetDTO petDTO) {
         Owner owner = ownerService.findById(ownerId);
         Pet pet = petDTO.toEntity(owner); //  PetDTO가 직접 변환 수행
@@ -49,6 +52,7 @@ public class PetService {
      * @param petDTO 수정할 데이터가 담긴 PetDTO 객체
      * @return 수정된 Pet Entity 객체
      */
+    @Transactional
     public Pet updatePet(Long petId, PetDTO petDTO) {
         Pet pet = petRepository.findById(petId)
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 Pet ID: " + petId));
@@ -85,6 +89,7 @@ public class PetService {
      *
      * @return PetType 리스트
      */
+
     public List<PetType> getAllPetTypes() {
         return petRepository.findAllPetTypes();
     }
