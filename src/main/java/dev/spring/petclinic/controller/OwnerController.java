@@ -2,7 +2,6 @@ package dev.spring.petclinic.controller;
 
 import dev.spring.petclinic.model.Owner;
 import dev.spring.petclinic.service.OwnerService;
-import dev.spring.petclinic.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,20 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+
 @Controller
 @RequestMapping("/owners")
 @RequiredArgsConstructor
 public class OwnerController {
 
     private final OwnerService ownerService;
-
-    private void setupOwnerFormModel(Model model, Owner owner, boolean isNew) {
-        model.addAllAttributes(Map.of(
-                "owner", owner,
-                "isNew", isNew
-        ));
-    }
-
 
     //  검색 기능 & 전체 목록 조회
     @GetMapping
@@ -53,11 +45,13 @@ public class OwnerController {
     // Owner 추가 폼을 보여주는 GET 요청
     @GetMapping("/new")
     public String showAddOwnersForm(Model model) {
-        Owner owner = new Owner();
-        setupOwnerFormModel(model, owner, true);
+        Owner owner = ownerService.createNewOwner(); // 새로운 Owner 객체 생성 메서드 호출
+        model.addAllAttributes(Map.of(
+                "owner", owner,
+                "isNew", true
+        ));
         return "owners/createOrUpdateOwnerForm";
     }
-
 
     // Owner 저장 (POST)
     @PostMapping("/new")
@@ -66,12 +60,14 @@ public class OwnerController {
         return "redirect:/owners/" + savedOwner.getId();
     }
 
-
     // Owner 수정 폼 요청
     @GetMapping("/{id}/edit")
     public String showEditOwnerForm(@PathVariable Long id, Model model) {
         Owner owner = ownerService.findById(id);
-        setupOwnerFormModel(model, owner, false);
+        model.addAllAttributes(Map.of(
+                "owner", owner,
+                "isNew", false
+        ));
         return "owners/createOrUpdateOwnerForm";
     }
 
@@ -82,7 +78,6 @@ public class OwnerController {
         return "redirect:/owners/" + savedOwner.getId();
     }
 
-
     //  특정 Owner 상세 정보 조회 (GET)
     @GetMapping("{id}")
     public String showOwnerDetails(@PathVariable Long id, Model model) {
@@ -90,6 +85,4 @@ public class OwnerController {
         model.addAttribute("owner", owner);
         return "owners/ownerDetails";
     }
-
-
 }

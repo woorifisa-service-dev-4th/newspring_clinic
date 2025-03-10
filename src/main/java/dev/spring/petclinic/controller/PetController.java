@@ -1,12 +1,12 @@
 package dev.spring.petclinic.controller;
 
 
+import dev.spring.petclinic.converter.PetTypeFormatter;
 import dev.spring.petclinic.model.Owner;
 import dev.spring.petclinic.service.OwnerService;
 import dev.spring.petclinic.dto.PetDTO;
 import dev.spring.petclinic.service.PetService;
 import dev.spring.petclinic.model.PetType;
-import dev.spring.petclinic.repository.PetTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,11 +23,16 @@ public class PetController {
 
     private final OwnerService ownerService;
     private final PetService petService;
+    private final PetTypeFormatter petTypeFormatter;
 
-    // PetType 변환기 등록
+    //@ModelAttribute("pet")으로 바인딩되는 객체에서 id 필드의 값을 무시
+    //폼에서 id 값을 보내더라도, Spring이 해당 값을 바인딩하지 않음.
+    // 생성한 petTypeformatter 등록
     @InitBinder("pet")
     public void initPetBinder(WebDataBinder dataBinder) {
+
         dataBinder.setDisallowedFields("id");
+        dataBinder.addCustomFormatter(petTypeFormatter);
     }
 
     // Model 설정 공통 메서드
@@ -46,7 +51,7 @@ public class PetController {
     public String showAddPetForm(@PathVariable Long ownerId, Model model) {
 
         Owner owner = ownerService.findById(ownerId);
-        PetDTO petDTO = petService.createdNewPetDTO(ownerId);
+        PetDTO petDTO = petService.createNewPetDTO(ownerId);
         List<PetType> petTypes = petService.getAllPetTypes();
 
         setUpPetFormModel(model, owner, petDTO, petTypes, true);

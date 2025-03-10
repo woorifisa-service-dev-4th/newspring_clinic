@@ -6,7 +6,7 @@ import dev.spring.petclinic.model.PetType;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 
 
 @Getter
@@ -18,7 +18,7 @@ public class PetDTO {
     private Long id;
     private String name;
     private String birthDate;
-    private String type;
+    private PetType type;
     private Long ownerId;
 
     // Entity → DTO 변환
@@ -27,20 +27,25 @@ public class PetDTO {
                 .id(pet.getId())
                 .name(pet.getName())
                 .birthDate(pet.getBirthDate().toString())
-                .type(pet.getType().getName())
+                .type(pet.getType()) // PetType 객체 직접 할당
                 .ownerId(pet.getOwner().getId())
                 .build();
     }
 
-    //  DTO → Entity 변환
-    public Pet toEntity(Owner owner, PetType petType) {
+    // DTO → Entity 변환
+    public Pet toEntity(Owner owner) {
         return Pet.builder()
                 .id(this.id)
                 .name(this.name)
-                .birthDate(LocalDate.parse(this.birthDate, DateTimeFormatter.ofPattern("yyyy-MM-dd")))
-                .type(petType)
+                .birthDate(getParsedBirthDate())
+                .type(this.type)
                 .owner(owner)
                 .build();
+    }
+
+    // LocalDate 변환 로직
+    public LocalDate getParsedBirthDate() {
+        return LocalDate.parse(this.birthDate);
     }
 
 }
