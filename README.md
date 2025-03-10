@@ -35,4 +35,11 @@
 
 **3. Veterinarians 조회 기능**
   - GetMapping을 사용한 목록 조회
+<br>
+
+**4. Visit 추가 기능**
+   - GetMapping
+     * Visit 추가 폼 가져오기
+   - PostMapping
+     * Visit 저장
 <br><br>
