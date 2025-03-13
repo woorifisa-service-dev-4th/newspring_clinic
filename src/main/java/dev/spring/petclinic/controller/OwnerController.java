@@ -22,7 +22,6 @@ public class OwnerController {
     @GetMapping
     public ResponseEntity<List<OwnerDto>> listOwners(@RequestParam(name = "lastName", required = false) String lastName) {
         List<Owner> owners = ownerService.searchOwners(lastName);
-
         List<OwnerDto> data = owners.stream()
                 .map(OwnerDto::new)
                 .toList();

@@ -21,13 +21,18 @@ public class OwnerRequestDTO {
 
 
     public Owner toEntity() {
-        return Owner.builder()
+        Owner.OwnerBuilder<?, ?> builder = Owner.builder()
                 .firstName(this.firstName)
                 .lastName(this.lastName)
                 .address(this.address)
                 .city(this.city)
-                .telephone(this.telephone)
-                .pets(this.pets)
-                .build();
+                .telephone(this.telephone);
+
+        if (this.pets != null) {
+            this.pets.forEach(builder::pet); // 개별 추가
+        }
+
+        return builder.build();
     }
+
 }

@@ -17,7 +17,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
@@ -40,7 +39,6 @@ public class Owner extends BaseEntity {
      */
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
+    @Singular
     private List<Pet> pets = new ArrayList<>();
-
 }
