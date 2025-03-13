@@ -14,8 +14,8 @@ public class SwaggerConfig {
 		return new OpenAPI()
 			.components(new Components())
 			.info(new Info()
-				.title("Springdoc 테스트")
-				.description("Springdoc을 사용한 Swagger UI 테스트")
+				.title("Pet Clinic")
+				.description("PetClinic Swagger")
 				.version("1.0.0"));
 	}
 }
