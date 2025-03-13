@@ -1,6 +1,5 @@
 package dev.spring.petclinic.model;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,7 +14,6 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,8 +25,6 @@ import java.util.List;
 @SuperBuilder
 @Table(name = "pets")
 public class Pet extends BaseEntity {
-
-
     private String name;
 
     @Column(name = "birth_date")

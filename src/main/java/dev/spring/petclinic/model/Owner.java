@@ -1,6 +1,7 @@
 package dev.spring.petclinic.model;
 
 
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -38,7 +39,8 @@ public class Owner extends BaseEntity {
      이때 NullPointerException 방지를 위해 new ArrayList<> 초기화
      */
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Pet> pets = new ArrayList<>();
 
 }

@@ -1,7 +1,6 @@
 package dev.spring.petclinic.model;
 
 
-
 import java.io.Serializable;
 
 import jakarta.persistence.EntityListeners;
@@ -14,16 +13,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
-@MappedSuperclass
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@EntityListeners(AuditingEntityListener.class)
+@MappedSuperclass
 public class BaseEntity implements Serializable {
 
     @Id
