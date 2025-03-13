@@ -1,6 +1,5 @@
 package dev.spring.petclinic.service;
 
-import dev.spring.petclinic.dto.OwnerRequestDTO;
 import dev.spring.petclinic.model.Owner;
 import dev.spring.petclinic.repository.OwnerRepository;
 import jakarta.transaction.Transactional;
@@ -8,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 
 
 @Service

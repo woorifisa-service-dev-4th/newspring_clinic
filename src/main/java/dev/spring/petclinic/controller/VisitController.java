@@ -1,46 +1,59 @@
 package dev.spring.petclinic.controller;
 
-import dev.spring.petclinic.model.Pet;
+
+import dev.spring.petclinic.dto.VisitRequestDTO;
+import dev.spring.petclinic.dto.VisitResponseDTO;
 import dev.spring.petclinic.model.Visit;
-import dev.spring.petclinic.service.PetService;
 import dev.spring.petclinic.service.VisitService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
-@RequestMapping("/owners/{ownerId}/pets/{petId}/visits")
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("/api/visits")
+@RequiredArgsConstructor
+@Tag(name = "Visit", description = "Visit API for Pet Clinic")
 public class VisitController {
 
-	private final VisitService visitService;
-	private final PetService petService;
+    private final VisitService visitService;
 
-	public VisitController(VisitService visitService, PetService petService) {
-		this.visitService = visitService;
-		this.petService = petService;
-	}
+    /**
+     * 새 진료 추가
+     */
+	@Operation(summary = "새 진료 추가 ", description = "새로운 진료를 등록한다.")
+    @PostMapping("/add")
+    public ResponseEntity<VisitResponseDTO> createVisit(@RequestBody VisitRequestDTO visitRequestDTO) {
+        Visit savedVisit = visitService.save(visitRequestDTO);
+        return ResponseEntity.ok(new VisitResponseDTO(savedVisit));
+    }
 
-	// 새로운 방문(Visit) 추가 폼
-	@GetMapping("/new")
-	public String showVisitForm(@PathVariable Long petId, Model model) {
-		Pet pet = petService.findById(petId);
-		Visit visit = new Visit();
+    /**
+     * 모든 진료 기록 조회
+     */
+	@Operation(summary = "모든 진료 기록 조회", description = "모든 진료 기록을 조회한다.")
+    @GetMapping
+    public ResponseEntity<List<VisitResponseDTO>> getAllVisits() {
+        List<VisitResponseDTO> visits = visitService.getAllVisits()
+                .stream()
+                .map(VisitResponseDTO::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(visits);
+    }
 
-		model.addAttribute("visit", visit);
-		model.addAttribute("pet", pet);
-		model.addAttribute("owner", pet.getOwner());
-		//model.addAttribute("isNew", true);
+    /**
+     * 특정 ID의 진료 기록 조회
+     */
+	@Operation(summary = "특정 ID의 진료 기록 조회", description = "특정 ID의 진료 기록을 조회한다.")
+    @GetMapping("/{id}")
+    public ResponseEntity<VisitResponseDTO> getVisitById(@PathVariable Long id) {
+        Visit visit = visitService.getVisitById(id);
+        return ResponseEntity.ok(new VisitResponseDTO(visit));
+    }
 
-		return "pets/createOrUpdateVisitForm"; // pets visit 폼 렌더링
-	}
 
-	// 새로운 방문(Visit) 저장
-	@PostMapping("/new")
-	public String saveVisit(@PathVariable Long petId, @ModelAttribute Visit visit) {
-		Pet pet = petService.findById(petId);
-		visit.setPet(pet);
-		visitService.save(visit);
-		return "redirect:/owners/" + pet.getOwner().getId();
-	}
 }
-

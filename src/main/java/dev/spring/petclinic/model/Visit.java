@@ -1,15 +1,12 @@
 package dev.spring.petclinic.model;
 
-
+import dev.spring.petclinic.dto.VisitRequestDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+
 
 @Entity
 @Getter
@@ -17,19 +14,22 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@Table(name = "visits")
+@Table(name ="visits")
 public class Visit extends BaseEntity {
 
-    @Column(name = "visit_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
-
-    private String description;
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "pet_id", nullable = false)
     private Pet pet;
 
+    private String description;
 
+    @Column(name="visit_date")
+    private LocalDate date;
+
+
+    public void updateFromRequestDTO(VisitRequestDTO visitRequestDTO, Pet pet) {
+        this.pet = pet;
+        this.description = visitRequestDTO.getDescription();
+        this.date = visitRequestDTO.getDate().toLocalDate();
+    }
 }
