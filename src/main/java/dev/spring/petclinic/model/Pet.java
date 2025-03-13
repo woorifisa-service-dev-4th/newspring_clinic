@@ -1,11 +1,14 @@
 package dev.spring.petclinic.model;
 
 
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,8 +20,6 @@ import java.util.List;
 @SuperBuilder
 @Table(name = "pets")
 public class Pet extends BaseEntity {
-
-
     private String name;
 
     @Column(name = "birth_date")

@@ -2,11 +2,11 @@ package dev.spring.petclinic.controller;
 
 
 import dev.spring.petclinic.converter.PetTypeFormatter;
-import dev.spring.petclinic.model.Owner;
-import dev.spring.petclinic.service.OwnerService;
 import dev.spring.petclinic.dto.PetDTO;
-import dev.spring.petclinic.service.PetService;
+import dev.spring.petclinic.model.Owner;
 import dev.spring.petclinic.model.PetType;
+import dev.spring.petclinic.service.OwnerService;
+import dev.spring.petclinic.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

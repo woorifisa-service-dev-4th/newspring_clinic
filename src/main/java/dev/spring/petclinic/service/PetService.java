@@ -5,12 +5,13 @@ import dev.spring.petclinic.model.Pet;
 import dev.spring.petclinic.dto.PetDTO;
 import dev.spring.petclinic.model.PetType;
 import dev.spring.petclinic.repository.PetRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
+
 
 @Service
 @RequiredArgsConstructor

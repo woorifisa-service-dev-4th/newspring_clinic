@@ -1,13 +1,15 @@
 package dev.spring.petclinic.service;
 
+import dev.spring.petclinic.dto.OwnerRequestDTO;
 import dev.spring.petclinic.model.Owner;
 import dev.spring.petclinic.repository.OwnerRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +27,10 @@ public class OwnerService {
         return new Owner(); // 기본 생성자 호출
     }
 
-
+    @Transactional
+    public Owner saveOwner(OwnerRequestDTO ownerRequestDTO) {
+        return ownerRepository.save(ownerRequestDTO.toEntity());
+    }
     /**
      * Owner 저장 또는 수정
      *
@@ -33,18 +38,18 @@ public class OwnerService {
      * @return 저장된 Owner 객체
      */
     @Transactional
-    public Owner saveOwner(Owner owner) {
-        if (owner.getId() != null) { // 기존 Owner 수정 시
-            Owner existingOwner = ownerRepository.findById(owner.getId())
-                    .orElseThrow(() -> new RuntimeException("Owner가 존재하지 않습니다"));
+    public Owner saveOwner(Long id, OwnerRequestDTO ownerRequestDTO) {
+        // 기존 Owner 수정 시
+        Owner existingOwner = ownerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Owner가 존재하지 않습니다"));
 
-            // 기존 Owner의 pets 리스트 유지
-            if (owner.getPets() == null || owner.getPets().isEmpty()) {
-                owner.setPets(existingOwner.getPets());
-            }
+        // 기존 Owner의 pets 리스트 유지
+        if (ownerRequestDTO.getPets() == null || ownerRequestDTO.getPets().isEmpty()) {
+            ownerRequestDTO.setPets(existingOwner.getPets());
         }
 
-        return ownerRepository.save(owner);
+
+        return ownerRepository.save(ownerRequestDTO.toEntity());
     }
 
     /**
@@ -72,5 +77,15 @@ public class OwnerService {
             return ownerRepository.findByLastNameContainingIgnoreCase(lastName);
         }
         return ownerRepository.findAll();
+    }
+
+    /**
+     * Owner 삭제
+     *
+     * @param id 삭제할 Owner의 ID
+     */
+    @Transactional
+    public void deleteOwner(Long id) {
+        ownerRepository.deleteById(id);
     }
 }

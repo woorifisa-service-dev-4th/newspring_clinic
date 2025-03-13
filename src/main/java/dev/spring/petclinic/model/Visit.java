@@ -1,17 +1,15 @@
 package dev.spring.petclinic.model;
 
-import lombok.*;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
-import javax.persistence.*;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.sun.istack.NotNull;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -21,10 +19,6 @@ import com.sun.istack.NotNull;
 @SuperBuilder
 @Table(name = "visits")
 public class Visit extends BaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column(name = "visit_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

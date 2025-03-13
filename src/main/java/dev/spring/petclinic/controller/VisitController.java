@@ -1,17 +1,12 @@
 package dev.spring.petclinic.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import dev.spring.petclinic.model.Pet;
 import dev.spring.petclinic.model.Visit;
 import dev.spring.petclinic.service.PetService;
 import dev.spring.petclinic.service.VisitService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/owners/{ownerId}/pets/{petId}/visits")
