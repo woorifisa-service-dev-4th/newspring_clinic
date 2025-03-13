@@ -1,0 +1,26 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+  security:
+    user:
+      name: admin
+      password: a1234
+  application:
+    name: petclinic
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://devcvrds.cfygiiw2gul0.us-east-1.rds.amazonaws.com:3306/petclinic_dev?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: petclinic
+    password: root
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: update
+        dialect: org.hibernate.dialect.MySQLDialect
+server:
+  tomcat:
+    max-http-form-post-size: 10MB
+logging:
+  level:
+    org.springframework.web: TRACE
