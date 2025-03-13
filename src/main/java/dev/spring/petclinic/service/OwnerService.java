@@ -2,12 +2,12 @@ package dev.spring.petclinic.service;
 
 import dev.spring.petclinic.model.Owner;
 import dev.spring.petclinic.repository.OwnerRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor

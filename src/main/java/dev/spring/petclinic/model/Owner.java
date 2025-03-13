@@ -1,9 +1,10 @@
 package dev.spring.petclinic.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,8 @@ import java.util.List;
 @SuperBuilder
 @Table(name = "owners")
 public class Owner extends BaseEntity {
+
+
 
     private String firstName;
     private String lastName;

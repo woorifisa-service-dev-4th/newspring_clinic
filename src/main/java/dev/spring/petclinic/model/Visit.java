@@ -3,15 +3,14 @@ package dev.spring.petclinic.model;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.*;
-
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.sun.istack.NotNull;
+
 
 @Entity
 @Getter
