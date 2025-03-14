@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class OwnerRequestDTO {
+public class OwnerRequestDto {
     private String firstName;
     private String lastName;
     private String address;

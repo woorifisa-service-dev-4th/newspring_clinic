@@ -1,7 +1,7 @@
 package dev.spring.petclinic.controller;
 
 import dev.spring.petclinic.dto.OwnerDto;
-import dev.spring.petclinic.dto.OwnerRequestDTO;
+import dev.spring.petclinic.dto.OwnerRequestDto;
 import dev.spring.petclinic.model.Owner;
 import dev.spring.petclinic.service.OwnerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -44,7 +44,7 @@ public class OwnerController {
      */
     @PostMapping("/new")
     @Operation(summary = "owner 등록", description = "새로운 owner를 등록한다.")
-    public ResponseEntity<Owner> addOwner(@RequestBody OwnerRequestDTO ownerRequestDTO) {
+    public ResponseEntity<Owner> addOwner(@RequestBody OwnerRequestDto ownerRequestDTO) {
         Owner savedOwner = ownerService.addOwner(ownerRequestDTO);
         return ResponseEntity.ok(savedOwner);
     }
@@ -58,7 +58,7 @@ public class OwnerController {
      */
     @PutMapping("/{owenrId}/edit")
     @Operation(summary = "owner 수정", description = "owner를 수정한다.")
-    public ResponseEntity<Owner> updateOwner(@PathVariable Long ownerId, @RequestBody OwnerRequestDTO ownerRequestDTO) {
+    public ResponseEntity<Owner> updateOwner(@PathVariable Long ownerId, @RequestBody OwnerRequestDto ownerRequestDTO) {
         Owner savedOwner = ownerService.saveOwner(ownerId, ownerRequestDTO);
         return ResponseEntity.ok(savedOwner);
     }

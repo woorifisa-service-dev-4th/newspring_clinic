@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class VisitRequestDTO {
+public class VisitRequestDto {
     private Long petId;
     private String description;
     private LocalDate date;

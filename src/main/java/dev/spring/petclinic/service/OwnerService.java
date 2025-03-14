@@ -1,6 +1,6 @@
 package dev.spring.petclinic.service;
 
-import dev.spring.petclinic.dto.OwnerRequestDTO;
+import dev.spring.petclinic.dto.OwnerRequestDto;
 import dev.spring.petclinic.model.Owner;
 import dev.spring.petclinic.repository.OwnerRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +26,12 @@ public class OwnerService {
     }
 
     @Transactional
-    public Owner addOwner(OwnerRequestDTO ownerRequestDTO) {
+    public Owner addOwner(OwnerRequestDto ownerRequestDTO) {
         return ownerRepository.save(ownerRequestDTO.toEntity());
     }
 
     @Transactional
-    public Owner saveOwner(Long id, OwnerRequestDTO ownerRequestDTO) {
+    public Owner saveOwner(Long id, OwnerRequestDto ownerRequestDTO) {
         Optional<Owner> existingOwner = ownerRepository.findById(id);
         if (existingOwner.isPresent()) {
             return ownerRepository.save(ownerRequestDTO.toEntity(id));
