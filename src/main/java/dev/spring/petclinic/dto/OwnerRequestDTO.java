@@ -6,10 +6,7 @@ import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Builder
 public class OwnerRequestDTO {
     private String firstName;
@@ -19,20 +16,26 @@ public class OwnerRequestDTO {
     private String telephone;
     private List<Pet> pets;
 
-
     public Owner toEntity() {
-        Owner.OwnerBuilder<?, ?> builder = Owner.builder()
+        return Owner.builder()
                 .firstName(this.firstName)
                 .lastName(this.lastName)
                 .address(this.address)
                 .city(this.city)
-                .telephone(this.telephone);
-
-        if (this.pets != null) {
-            this.pets.forEach(builder::pet); // 개별 추가
-        }
-
-        return builder.build();
+                .telephone(this.telephone)
+                .pets(this.pets)
+                .build();
     }
 
+    public Owner toEntity(Long id) {
+        return Owner.builder()
+                .id(id)
+                .firstName(this.firstName)
+                .lastName(this.lastName)
+                .address(this.address)
+                .city(this.city)
+                .telephone(this.telephone)
+                .pets(this.pets)
+                .build();
+    }
 }

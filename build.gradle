@@ -36,8 +36,8 @@ dependencies {
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	runtimeOnly 'org.webjars:webjars-locator-core'
-	runtimeOnly "org.webjars.npm:bootstrap:${webjarsBootstrapVersion}"
-	runtimeOnly "org.webjars.npm:font-awesome:${webjarsFontawesomeVersion}"
+//	runtimeOnly "org.webjars.npm:bootstrap:${webjarsBootstrapVersion}"
+//	runtimeOnly "org.webjars.npm:font-awesome:${webjarsFontawesomeVersion}"
 
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 }

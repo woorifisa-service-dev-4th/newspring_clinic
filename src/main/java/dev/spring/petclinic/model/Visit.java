@@ -1,10 +1,7 @@
 package dev.spring.petclinic.model;
 
-import dev.spring.petclinic.dto.VisitRequestDTO;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
-
 import java.time.LocalDate;
 
 
@@ -13,9 +10,12 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
 @Table(name ="visits")
-public class Visit extends BaseEntity {
+public class Visit {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "pet_id", nullable = false)
@@ -26,10 +26,4 @@ public class Visit extends BaseEntity {
     @Column(name="visit_date")
     private LocalDate date;
 
-
-    public void updateFromRequestDTO(VisitRequestDTO visitRequestDTO, Pet pet) {
-        this.pet = pet;
-        this.description = visitRequestDTO.getDescription();
-        this.date = visitRequestDTO.getDate().toLocalDate();
-    }
 }

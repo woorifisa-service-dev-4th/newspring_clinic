@@ -7,66 +7,37 @@ import dev.spring.petclinic.repository.PetRepository;
 import dev.spring.petclinic.repository.VisitRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class VisitService {
 
     private final VisitRepository visitRepository;
     private final PetRepository petRepository;
 
-    /**
-     *  진료 기록 저장
-     */
     @Transactional
-    public Visit save(VisitRequestDTO visitRequestDTO) {
-        Pet pet = petRepository.findById(visitRequestDTO.getPetId())
-                .orElseThrow(() -> new RuntimeException("해당 Pet이 존재하지 않습니다: " + visitRequestDTO.getPetId()));
-
-        Visit visit = visitRequestDTO.toEntity(pet);
-        return visitRepository.save(visit);
+    public Visit save(Long ownerId, Long petId, VisitRequestDTO visitRequestDTO) {
+        Optional<Pet> pet = petRepository.findByIdAndOwnerId(petId, ownerId);
+        if (pet.isPresent()) {
+            Visit visit = visitRequestDTO.toEntity();
+            visit.setPet(pet.get());
+            return visitRepository.save(visit);
+        }
+        throw new IllegalArgumentException("Pet not found for the given owner.");
     }
 
-    /**
-     * 모든 진료 기록 조회
-     */
-    public List<Visit> getAllVisits() {
-        return visitRepository.findAll();
+    public List<Visit> getAllVisits(Long ownerId, Long petId) {
+        return visitRepository.findByPetIdAndPetOwnerId(petId, ownerId);
     }
 
-    /**
-     *  특정 ID의 진료 기록 조회
-     */
-    public Visit getVisitById(Long id) {
-        return visitRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("해당 방문 기록이 존재하지 않습니다: " + id));
-    }
-
-    /**
-     * 진료 기록 업데이트
-     */
-    @Transactional
-    public Visit updateVisit(Long id, VisitRequestDTO visitRequestDTO) {
-        Visit visit = visitRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("해당 방문 기록이 존재하지 않습니다: " + id));
-
-        Pet pet = petRepository.findById(visitRequestDTO.getPetId())
-                .orElseThrow(() -> new RuntimeException("해당 Pet이 존재하지 않습니다: " + visitRequestDTO.getPetId()));
-
-        visit.updateFromRequestDTO(visitRequestDTO, pet);
-        return visitRepository.save(visit);
-    }
-
-    /**
-     *  진료 기록 삭제
-     */
-    @Transactional
-    public void deleteVisit(Long id) {
-        Visit visit = visitRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("해당 방문 기록이 존재하지 않습니다: " + id));
-        visitRepository.delete(visit);
+    public Visit getVisitById(Long ownerId, Long petId, Long visitId) {
+        return visitRepository.findByIdAndPetIdAndPetOwnerId(visitId, petId, ownerId)
+                .orElseThrow(() -> new IllegalArgumentException("Visit not found."));
     }
 }

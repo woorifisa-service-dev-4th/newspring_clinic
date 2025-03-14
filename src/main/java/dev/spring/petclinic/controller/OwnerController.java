@@ -41,7 +41,7 @@ public class OwnerController {
      */
     @PostMapping("/new")
     public ResponseEntity<Owner> addOwner(@RequestBody OwnerRequestDTO ownerRequestDTO) {
-        Owner savedOwner = ownerService.saveOwner(ownerRequestDTO);
+        Owner savedOwner = ownerService.addOwner(ownerRequestDTO);
         return ResponseEntity.ok(savedOwner);
     }
 
