@@ -9,6 +9,7 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class OwnerDto {
+    private Long id;
     private String firstName;
     private String lastName;
     private String address;
@@ -17,6 +18,7 @@ public class OwnerDto {
 
     public static OwnerDto from(Owner owner) {
         return OwnerDto.builder()
+                .id(owner.getId())
                 .firstName(owner.getFirstName())
                 .lastName(owner.getLastName())
                 .address(owner.getAddress())
@@ -26,6 +28,7 @@ public class OwnerDto {
     }
 
     public OwnerDto(Owner owner) {
+        this.id = owner.getId();
         this.firstName = owner.getFirstName();
         this.lastName = owner.getLastName();
         this.address = owner.getAddress();

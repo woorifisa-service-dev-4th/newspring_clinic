@@ -1,4 +1,4 @@
-package dev.spring.petclinic;
+package dev.spring.petclinic.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
