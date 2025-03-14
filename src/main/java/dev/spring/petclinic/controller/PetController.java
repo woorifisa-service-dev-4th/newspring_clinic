@@ -34,10 +34,9 @@ public class PetController {
     @PostMapping("/{ownerId}/new")
     public ResponseEntity<?> postPet (@PathVariable Long ownerId, @RequestBody  PetRequestDto petRequestDto){
 
-      //  Long ownerId = petRequestDto.getOwnerId();
         Pet savedPet = petService.savePet(ownerId,petRequestDto);
 
-        // 저장된 게시글 정보를 DTO로 반환
+        // pet 정보를 Dto로 반환
         PetResponseDto response = PetResponseDto.builder()
             .id(savedPet.getId())
             .name(savedPet.getName())
@@ -50,14 +49,14 @@ public class PetController {
 
 
 
-    //수정된 pet을 저장
+    // 수정된 pet을 저장
     @Operation(summary = "pet 수정", description = "기존 pet을 수정한다.")
     @PutMapping("/{ownerId}/update/{petId}")
-    public ResponseEntity<PetResponseDto> updatePet (@PathVariable Long petId,@RequestBody PetRequestDto petRequestDto){
+    public ResponseEntity<PetResponseDto> updatePet (@PathVariable Long ownerId,@PathVariable Long petId,@RequestBody PetRequestDto petRequestDto){
 
-        Pet updatedPet = petService.updatePet(petId,petRequestDto);
+        Pet updatedPet = petService.updatePet(ownerId,petId,petRequestDto);
 
-        // 저장된 게시글 정보를 DTO로 반환
+        // pet 정보를 Dto로 반환
         PetResponseDto response = PetResponseDto.builder()
             .id(updatedPet.getId())
             .name(updatedPet.getName())

@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,21 +38,23 @@ public class PetService {
     }
 
     @Transactional
-    public Pet updatePet(Long petId, PetRequestDto petRequestDto) {
+    public Pet updatePet(Long ownerId,Long petId, PetRequestDto petRequestDto) {
+        Owner owner = ownerRepository.findById(ownerId)
+            .orElseThrow(() -> new RuntimeException("User not found with id: " + ownerId));
+
         Pet pet = petRepository.findById(petId)
             .orElseThrow(() -> new RuntimeException("존재하지 않는 Pet ID: " + petId));
 
-        if (petRequestDto.getName() != null) {
-            pet.setName(petRequestDto.getName());
-        }
-        if (petRequestDto.getBirthDate() != null) {
-            pet.setBirthDate(petRequestDto.getBirthDate());
-        }
-        if (petRequestDto.getType() != null) {
-            pet.setType(petRequestDto.getType());
-        }
+        updatePetDetails(pet, petRequestDto);
 
         return petRepository.save(pet);
+    }
+
+    // Pet 정보 업데이트
+    private void updatePetDetails(Pet pet, PetRequestDto petRequestDto) {
+        Optional.ofNullable(petRequestDto.getName()).ifPresent(pet::setName);
+        Optional.ofNullable(petRequestDto.getBirthDate()).ifPresent(pet::setBirthDate);
+        Optional.ofNullable(petRequestDto.getType()).ifPresent(pet::setType);
     }
 
     public Pet findById(Long petId) {
