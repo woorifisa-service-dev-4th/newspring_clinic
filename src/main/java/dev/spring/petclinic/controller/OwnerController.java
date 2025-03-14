@@ -4,6 +4,8 @@ import dev.spring.petclinic.dto.OwnerDto;
 import dev.spring.petclinic.dto.OwnerRequestDTO;
 import dev.spring.petclinic.model.Owner;
 import dev.spring.petclinic.service.OwnerService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +16,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/owners")
 @RequiredArgsConstructor
+@Tag(name = "Owner", description = "Owner API for Pet Clinic")
 public class OwnerController {
 
     private final OwnerService ownerService;
-
 
     /**
      * 검색 기능 & 전체 목록 조회
@@ -25,6 +27,7 @@ public class OwnerController {
      * @return
      */
     @GetMapping
+    @Operation(summary = "owner 목록 조회", description = "모든 owner 목록을 조회한다.")
     public ResponseEntity<List<OwnerDto>> listOwners(@RequestParam(name = "lastName", required = false) String lastName) {
         List<Owner> owners = ownerService.searchOwners(lastName);
         List<OwnerDto> data = owners.stream()
@@ -35,11 +38,12 @@ public class OwnerController {
     }
 
     /**
-     *  Owner 저장
+     * Owner 저장
      * @param ownerRequestDTO
      * @return
      */
     @PostMapping("/new")
+    @Operation(summary = "owner 등록", description = "새로운 owner를 등록한다.")
     public ResponseEntity<Owner> addOwner(@RequestBody OwnerRequestDTO ownerRequestDTO) {
         Owner savedOwner = ownerService.addOwner(ownerRequestDTO);
         return ResponseEntity.ok(savedOwner);
@@ -48,24 +52,26 @@ public class OwnerController {
 
     /**
      * Owner 수정 저장
-     * @param id
+     * @param ownerId
      * @param ownerRequestDTO
      * @return
      */
-    @PutMapping("/{id}/edit")
-    public ResponseEntity<Owner> updateOwner(@PathVariable Long id, @RequestBody OwnerRequestDTO ownerRequestDTO) {
-        Owner savedOwner = ownerService.saveOwner(id, ownerRequestDTO);
+    @PutMapping("/{owenrId}/edit")
+    @Operation(summary = "owner 수정", description = "owner를 수정한다.")
+    public ResponseEntity<Owner> updateOwner(@PathVariable Long ownerId, @RequestBody OwnerRequestDTO ownerRequestDTO) {
+        Owner savedOwner = ownerService.saveOwner(ownerId, ownerRequestDTO);
         return ResponseEntity.ok(savedOwner);
     }
 
     /**
      * 특정 Owner 상세 정보 조회 (GET)
-     * @param id
+     * @param ownerId
      * @return
      */
-    @GetMapping("/{id}")
-    public ResponseEntity<Owner> showOwnerDetails(@PathVariable Long id) {
-        Owner owner = ownerService.findById(id);
+    @GetMapping("/{ownerId}")
+    @Operation(summary = "상세 owner 조회", description = "특정 owner의 상세 정보를 조회한다.")
+    public ResponseEntity<Owner> showOwnerDetails(@PathVariable Long ownerId) {
+        Owner owner = ownerService.findById(ownerId);
         return ResponseEntity.ok(owner);
     }
 }

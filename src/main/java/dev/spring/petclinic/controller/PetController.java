@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/pet")
+@RequestMapping("/api/pets")
 @RequiredArgsConstructor
 @Tag(name = "Pet", description = "Pet API for Pet Clinic")
 public class PetController {
